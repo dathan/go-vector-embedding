@@ -1,0 +1,56 @@
+name: Publish Docker container
+
+on:
+  push:
+    # Publish `master` as Docker `latest` image.
+    branches:
+      - master
+
+    # Publish `v1.2.3` tags as releases.
+    tags:
+      - v*
+
+  # Run tests for any PRs.
+  pull_request:
+
+jobs:
+  # Push image to GitHub Packages.
+  # See also https://docs.docker.com/docker-hub/builds/
+  build:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push'
+
+    steps:
+      #needed to access private repos with ssh
+      # - uses: shimataro/ssh-key-action@v2.0.1
+      #  with:
+      #    key: ${{ secrets.SSH_PRIV_KEY }}
+      #    known_hosts: ${{ secrets.KNOWN_HOSTS }}
+      #    name: id_rsa # optional
+      
+      - uses: actions/checkout@v2
+
+      - name: Build Container
+        run: make docker-build
+
+  publish:
+    runs-on: ubuntu-latest
+    if: startsWith(github.ref, 'refs/tags/v')
+
+    steps:
+      #needed to access private repos with ssh
+      # - uses: shimataro/ssh-key-action@v2.0.1
+      #  with:
+      #    key: ${{ secrets.SSH_PRIV_KEY }}
+      #    known_hosts: ${{ secrets.KNOWN_HOSTS }}
+      #    name: id_rsa # optional
+      
+      - uses: actions/checkout@v2
+
+      - name: Log into registry
+        #note the registry doesn't allow github_token a PAT is needed. So, you will need to create that post install
+        run: echo "${{ secrets.GITHUB_TOKEN }}" |docker login docker.pkg.github.com --username publisher --password-stdin
+
+      - name: Publish Build
+        run: make docker-push
+
