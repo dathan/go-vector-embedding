@@ -1,6 +1,6 @@
 ## Purpose
 
-Build a template repository to get to coding as quickly as possible, by starting from a common template which follows the guidelines [`here`](https://github.com/golang-standards/project-layout)
+Build a search interface to query openai's endpoints with the result of the vector embedding search result.
 
 ## Features
 * Makefile to build consistently in a local environment and remote environment
@@ -8,11 +8,13 @@ Build a template repository to get to coding as quickly as possible, by starting
 * Go Mod (which you should to your project path change)
 * VS Code environment
 * Generic docker push
+* OpenAI plugin
+* on the fly training
+* Masked query to openai
+
 
 ## TODO
-* Brew generic install [DONE]
-* GITHUB Actions build and push to dockerhub [DONE]
-* Production Builds with git tag
+* Do
 
 ## Installing via brew
-* `brew install --verbose --build-from-source brew/Formula/go-project-template.rb`
+* `brew install --verbose --build-from-source brew/Formula/go-vector-embedding.rb`

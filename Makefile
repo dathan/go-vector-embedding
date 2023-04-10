@@ -1,7 +1,7 @@
 # Go parameters
-BINARY_NAME=go-project-template
+BINARY_NAME=go-vector-embedding
 BINARY_UNIX=$(BINARY_NAME)_unix
-REPO=docker.pkg.github.com/dathan/go-project-template/go-project-template
+REPO=docker.pkg.github.com/dathan/go-vector-embedding/go-vector-embedding
 
 .PHONY: all
 all: lint test build
